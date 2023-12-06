@@ -14,10 +14,8 @@ export type ResolvedSeries = {
     type: string
     dataset: string
     title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    encoding: {[key: string]: any}
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    attributes: {[key: string]: any}
+    encoding: {[key: string]: string}
+    attributes: {[key: string]: string | number | number[]}
     t: number[]
     y: number[]
 }

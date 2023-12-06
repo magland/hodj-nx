@@ -170,8 +170,7 @@ type PanelProps = {
         pixelTimes: number[]
         pixelValues: number[]
         type: string
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        attributes: {[key: string]: any}
+        attributes: {[key: string]: string | number | number[]}
     }[]
 }
 
@@ -211,6 +210,8 @@ const paintPanel = (context: CanvasRenderingContext2D, props: PanelProps) => {
             applyMarkerAttributes(context, dim.attributes)
             const radius = dim.attributes['radius'] ?? 2
             const shape = dim.attributes['shape'] ?? 'circle'
+            if (typeof radius !== 'number') throw Error('Unexpected type of radius')
+            if (typeof shape !== 'string') throw Error('Unexpected type of shape')
             if (shape === 'circle') {
                 dim.pixelTimes.forEach((t, ii) => {
                     context.beginPath()
@@ -231,8 +232,7 @@ const paintPanel = (context: CanvasRenderingContext2D, props: PanelProps) => {
     context.restore()
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type PlotSeries = {type: string, times: number[], values: number[], attributes: {[key: string]: any}}
+type PlotSeries = {type: string, times: number[], values: number[], attributes: {[key: string]: string | number | number[]}}
 
 const computePlotSeries = (resolvedSeries: ResolvedSeries[]): PlotSeries[] => {
     const plotSeries: PlotSeries[] = []
@@ -269,16 +269,26 @@ const computePlotSeries = (resolvedSeries: ResolvedSeries[]): PlotSeries[] => {
     return plotSeries
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const applyLineAttributes = (context: CanvasRenderingContext2D, attributes: any) => {
-    context.strokeStyle = attributes['color'] ?? 'black'
-    context.lineWidth = attributes['width'] ?? 1.1 // 1.1 hack--but fixes the 'disappearing lines' issue
-    attributes['dash'] && context.setLineDash(attributes['dash'])
+const applyLineAttributes = (context: CanvasRenderingContext2D, attributes: {[key: string]: string | number | number[] | number[]}) => {
+    const strokeStyle = attributes['color'] ?? 'black'
+    const lineWidth = attributes['width'] ?? 1.1 // 1.1 hack--but fixes the 'disappearing lines' issue
+    const dash = attributes['dash'] ?? undefined
+    if (typeof strokeStyle === 'string') {
+        context.strokeStyle = strokeStyle
+    }
+    if (typeof lineWidth === 'number') {
+        context.lineWidth = lineWidth
+    }
+    if ((dash) && (typeof dash === 'object')) {
+        context.setLineDash(dash)
+    }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const applyMarkerAttributes = (context: CanvasRenderingContext2D, attributes: any) => {
-    context.fillStyle = attributes['color'] ?? 'black'
+const applyMarkerAttributes = (context: CanvasRenderingContext2D, attributes: {[key: string]: string | number | number[]}) => {
+    const fillStyle = attributes['color'] ?? 'black'
+    if (typeof fillStyle === 'string') {
+        context.fillStyle = fillStyle
+    }
 }
 
 function sleepMsec(msec: number) {

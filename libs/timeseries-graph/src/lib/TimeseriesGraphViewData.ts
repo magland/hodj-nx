@@ -9,18 +9,15 @@ export type GridlineOpts = {
 
 export type Dataset = {
     name: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: {[key: string]: any}
+    data: {[key: string]: number[]}
 }
 
 export type Series = {
     type: string
     dataset: string
     title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    encoding: {[key: string]: any}
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    attributes: {[key: string]: any}
+    encoding: {[key: string]: string}
+    attributes: {[key: string]: string | number | number[]}
 }
 
 // export type TimeseriesGraphDataAttributes = {
