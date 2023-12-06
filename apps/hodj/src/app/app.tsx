@@ -20,6 +20,9 @@ export function App() {
           </p>
         </div>
       </Section>
+      <Section label="TimeseriesGraph" width={width}>
+        <TimeseriesGraphExample width={0} />
+      </Section>
       <Section label="Hyperlink" width={width}>
         <Hyperlink onClick={() => alert('Hyperlink')}>Click me</Hyperlink>
       </Section>
@@ -32,9 +35,6 @@ export function App() {
           label="Click me"
           onClick={() => alert('SmallIconButton clicked')}
         />
-      </Section>
-      <Section label="TimeseriesGraph" width={width}>
-        <TimeseriesGraphExample width={0} />
       </Section>
       <Section label="ModalWindow" width={width}>
         <ModalWindowExample />
