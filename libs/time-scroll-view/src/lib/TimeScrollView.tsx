@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Splitter } from '@hodj/splitter'
 import TimeSelectionBar, { timeSelectionBarHeight } from './TimeSelectionBar';
 import { useYAxisTicks } from './YAxisTicks';
 import { DefaultToolbarWidth } from './TimeWidgetToolbarEntries'
 import useActionToolbar from './TimeScrollViewActionsToolbar';
-import useTimeScrollEventHandlers, { suppressWheelScroll } from './TimeScrollViewInteractions/TimeScrollViewEventHandlers';
+import useTimeScrollEventHandlers from './TimeScrollViewInteractions/TimeScrollViewEventHandlers';
 import { TickSet } from './YAxisTicks';
 import { ToolbarItem, ViewToolbar } from './ViewToolbar';
 import { useTimeTicks } from './timeTicks';
