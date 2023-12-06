@@ -5,6 +5,7 @@ import LayoutExample from './LayoutExample';
 import { Add } from '@mui/icons-material';
 import TimeseriesGraphExample from './TimeseriesGraphExample';
 import ModalWindowExample from './ModalWindowExample';
+import ElectrodeGeometryWidgetExample from './ElectrodeGeometryWidgetExample';
 
 export function App() {
   const { width, height } = useWindowDimensions();
@@ -33,10 +34,13 @@ export function App() {
         />
       </Section>
       <Section label="TimeseriesGraph" width={width}>
-        <TimeseriesGraphExample width={width} />
+        <TimeseriesGraphExample width={0} />
       </Section>
       <Section label="ModalWindow" width={width}>
         <ModalWindowExample />
+      </Section>
+      <Section label="ElectrodeGeometryWidget" width={width}>
+        <ElectrodeGeometryWidgetExample width={0} />
       </Section>
     </div>
   );

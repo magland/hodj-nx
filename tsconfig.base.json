@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@hodj/electrode-geometry": ["libs/electrode-geometry/src/index.ts"],
       "@hodj/misc": ["libs/misc/src/index.ts"],
       "@hodj/modal-window": ["libs/modal-window/src/index.ts"],
       "@hodj/splitter": ["libs/splitter/src/index.ts"],
