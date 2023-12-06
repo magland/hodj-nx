@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@hodj/misc": ["libs/misc/src/index.ts"],
+      "@hodj/modal-window": ["libs/modal-window/src/index.ts"],
       "@hodj/splitter": ["libs/splitter/src/index.ts"],
       "@hodj/time-scroll-view": ["libs/time-scroll-view/src/index.ts"],
       "@hodj/time-selection": ["libs/time-selection/src/index.ts"],

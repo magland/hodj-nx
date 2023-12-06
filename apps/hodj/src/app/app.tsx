@@ -4,6 +4,7 @@ import Section from './Section';
 import LayoutExample from './LayoutExample';
 import { Add } from '@mui/icons-material';
 import TimeseriesGraphExample from './TimeseriesGraphExample';
+import ModalWindowExample from './ModalWindowExample';
 
 export function App() {
   const { width, height } = useWindowDimensions();
@@ -33,6 +34,9 @@ export function App() {
       </Section>
       <Section label="TimeseriesGraph" width={width}>
         <TimeseriesGraphExample width={width} />
+      </Section>
+      <Section label="ModalWindow" width={width}>
+        <ModalWindowExample />
       </Section>
     </div>
   );
