@@ -1,24 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
-import { clearDivFocus, divExists, setDivFocus } from './divRefHandling';
+import { clearDivFocus, setDivFocus } from './divRefHandling';
 import useTimeScrollPan, { PanUpdateProperties } from './useTimeScrollPan';
 import { useTimeSelection } from '@hodj/time-selection';
-
-
-export const suppressWheelScroll = (divRef: React.MutableRefObject<HTMLDivElement | null>) => {
-    if (!divRef || !divRef.current) return
-    const canvases = Array.from(divRef.current.children).filter(e => e.nodeName === 'CANVAS')
-    canvases.forEach(c => {
-        c.addEventListener('wheel', (e: Event) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if ((divRef?.current as any)['_hasFocus']) {
-                e.preventDefault()
-            }
-        })
-    })
-}
-
-
-type DivRef = React.MutableRefObject<HTMLDivElement | null>
 
 type ClickReader = (e: React.MouseEvent) => { mouseX: number, fraction: number }
 const useClickReader = (leftMargin: number, panelWidthPx: number): ClickReader => {
@@ -30,82 +13,82 @@ const useClickReader = (leftMargin: number, panelWidthPx: number): ClickReader =
 }
 
 
-const useMousedownHandler = (divRef: DivRef, clickReader: ClickReader, resetPanStateAnchor: (mouseX: number) => void) => {
+const useMousedownHandler = (divElmt: HTMLDivElement | null, clickReader: ClickReader, resetPanStateAnchor: (mouseX: number) => void) => {
     const handler = useCallback((e: React.MouseEvent) => {
-        if (divExists(divRef)) {
+        if (divElmt) {
             const {mouseX} = clickReader(e)
             resetPanStateAnchor(mouseX)
         }
-    }, [divRef, clickReader, resetPanStateAnchor])
+    }, [divElmt, clickReader, resetPanStateAnchor])
 
     return handler
 }
 
 
-const useMouseLeaveHandler = (divRef: DivRef, clearPanState: () => void) => {
+const useMouseLeaveHandler = (divElmt: HTMLDivElement | null, clearPanState: () => void) => {
     const handler = useCallback((e: React.MouseEvent) => {
-        if (divExists(divRef)) {
+        if (divElmt) {
             clearPanState()
-            clearDivFocus(divRef)
+            clearDivFocus(divElmt)
         }
-    }, [divRef, clearPanState])
+    }, [divElmt, clearPanState])
 
     return handler
 }
 
 
-const useClickHandler = (divRef: DivRef, clickReader: ClickReader, setCurrentTimeFraction: (fraction: number, opts: {event: React.MouseEvent}) => void) => {
+const useClickHandler = (divElmt: HTMLDivElement | null, clickReader: ClickReader, setCurrentTimeFraction: (fraction: number, opts: {event: React.MouseEvent}) => void) => {
     const handler = useCallback((e: React.MouseEvent) => {
-        if (divExists(divRef)) {
+        if (divElmt) {
             const {fraction} = clickReader(e)
             setCurrentTimeFraction(fraction, {event: e})
-            setDivFocus(divRef)
+            setDivFocus(divElmt)
         }
-    }, [clickReader, setCurrentTimeFraction, divRef])
+    }, [clickReader, setCurrentTimeFraction, divElmt])
 
     return handler
 }
 
 
-const useMouseupHandler = (divRef: DivRef, isPanning: () => boolean, handleClick: (e: React.MouseEvent) => void, clearPan: () => void) => {
+const useMouseupHandler = (divElmt: HTMLDivElement | null, isPanning: () => boolean, handleClick: (e: React.MouseEvent) => void, clearPan: () => void) => {
     const handler = useCallback((e: React.MouseEvent) => {
-        if (divExists(divRef)) {
+        if (divElmt) {
             if (!isPanning()) {
                 handleClick(e)
             }
             clearPan()
         }
-    }, [divRef, isPanning, handleClick, clearPan])
+    }, [divElmt, isPanning, handleClick, clearPan])
 
     return handler
 }
 
 
-const useMouseMoveHandler = (divRef: DivRef, clickReader: ClickReader, startPan: (mouseX: number) => void, setPanUpdate: (state: PanUpdateProperties) => void) => {
+const useMouseMoveHandler = (divElmt: HTMLDivElement | null, clickReader: ClickReader, startPan: (mouseX: number) => void, setPanUpdate: (state: PanUpdateProperties) => void) => {
     const handler = useCallback((e: React.MouseEvent) => {
-        if (!divExists(divRef)) {
+        if (!divElmt) {
             return
         }
         const {mouseX} = clickReader(e)
         startPan(mouseX)
         setPanUpdate({mouseX})
-    }, [divRef, clickReader, startPan, setPanUpdate])
+    }, [divElmt, clickReader, startPan, setPanUpdate])
 
     return handler
 }
 
 
-const useTimeScrollEventHandlers = (leftMargin: number, panelWidth: number, panelWidthSeconds: number, divRef: React.MutableRefObject<HTMLDivElement | null>) => {
+const useTimeScrollEventHandlers = (leftMargin: number, panelWidth: number, panelWidthSeconds: number, divElmt: HTMLDivElement | null) => {
     const { setCurrentTimeFraction, panTimeSelection } = useTimeSelection()
 
     const clickReader = useClickReader(leftMargin, panelWidth)
     const secondsPerPixel = useMemo(() => panelWidthSeconds / panelWidth, [panelWidthSeconds, panelWidth])
-    const {setPanUpdate, resetAnchor, startPan, clearPan, isPanning} = useTimeScrollPan(divRef, secondsPerPixel, panTimeSelection)
-    const handleClick = useClickHandler(divRef, clickReader, setCurrentTimeFraction)
-    const handleMouseDown = useMousedownHandler(divRef, clickReader, resetAnchor)
-    const handleMouseUp = useMouseupHandler(divRef, isPanning, handleClick, clearPan)
-    const handleMouseMove = useMouseMoveHandler(divRef, clickReader, startPan, setPanUpdate)
-    const handleMouseLeave = useMouseLeaveHandler(divRef, clearPan)
+    const {setPanUpdate, resetAnchor, startPan, clearPan, isPanning} = useTimeScrollPan(divElmt, secondsPerPixel, panTimeSelection)
+    const handleClick = useClickHandler(divElmt, clickReader, setCurrentTimeFraction)
+    const handleMouseDown = useMousedownHandler(divElmt, clickReader, resetAnchor)
+    const handleMouseUp = useMouseupHandler(divElmt, isPanning, handleClick, clearPan)
+    const handleMouseMove = useMouseMoveHandler(divElmt, clickReader, startPan, setPanUpdate)
+    const handleMouseLeave = useMouseLeaveHandler(divElmt, clearPan)
 
     const handlers = useMemo(() => {
         return {handleMouseUp, handleMouseMove, handleMouseDown, handleMouseLeave}

@@ -4,16 +4,14 @@ export const divExists = (divRef: React.MutableRefObject<HTMLDivElement | null>)
     return true
 }
 
-export const setDivFocus = (divRef: React.MutableRefObject<HTMLDivElement | null>) => {
-    if (!divExists(divRef)) return
+export const setDivFocus = (divElmt: HTMLDivElement | null) => {
+    if (!divElmt) return
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const div = divRef.current as any
-    div['_hasFocus'] = true
+    (divElmt as any)['_hasFocus'] = true
 }
 
-export const clearDivFocus = (divRef: React.MutableRefObject<HTMLDivElement | null>) => {
-    if (!divExists(divRef)) return
+export const clearDivFocus = (divElmt: HTMLDivElement | null) => {
+    if (!divElmt) return
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const div = divRef.current as any
-    div['_hasFocus'] = false
+    (divElmt as any)['_hasFocus'] = false
 }

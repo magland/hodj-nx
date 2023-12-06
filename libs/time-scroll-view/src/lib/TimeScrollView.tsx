@@ -133,11 +133,23 @@ const TimeScrollView: FunctionComponent<Props> = ({width, height, onCanvasElemen
         )
     }, [canvasWidth, canvasHeight, timeRange, margins, currentTimePixels])
 
-    const divRef = useRef<HTMLDivElement | null>(null)
-    useEffect(() => suppressWheelScroll(divRef), [divRef])
+    const [divElmt, setDivElmt] = useState<HTMLDivElement | null>(null)
+    useEffect(() => {
+        if (!divElmt) return
+        const listener = (e: Event) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if ((divElmt as any)['_hasFocus']) {
+                e.preventDefault()
+            }
+        }
+        divElmt.addEventListener('wheel', listener)
+        return () => {
+            divElmt.removeEventListener('wheel', listener)
+        }
+    }, [divElmt])
     const panelWidthSeconds = (visibleEndTimeSec ?? 0) - (visibleStartTimeSec ?? 0)
     // const handleWheel = useTimeScrollZoom(divRef, zoomTimeSelection, {shiftZoom})
-    const {handleMouseDown, handleMouseUp, handleMouseLeave, handleMouseMove} = useTimeScrollEventHandlers(margins.left, canvasWidth - margins.left - margins.right, panelWidthSeconds, divRef)
+    const {handleMouseDown, handleMouseUp, handleMouseLeave, handleMouseMove} = useTimeScrollEventHandlers(margins.left, canvasWidth - margins.left - margins.right, panelWidthSeconds, divElmt)
 
     const [, setHoverTime] = useState<number | undefined>(undefined)
 
@@ -148,7 +160,7 @@ const TimeScrollView: FunctionComponent<Props> = ({width, height, onCanvasElemen
         const mouseX = e.clientX - e.currentTarget.getBoundingClientRect().x
         const anchorTime = pixelToTime(mouseX)
         const zoomsCount = -e.deltaY / 100
-        zoomTimeSelection(zoomsCount > 0 ? 1.03 : 1 / 1.03, anchorTime)
+        zoomTimeSelection(zoomsCount > 0 ? 1.1 : 1 / 1.1, anchorTime)
     }, [zoomTimeSelection, pixelToTime, shiftZoom])
 
     const handleKeyDown: React.KeyboardEventHandler = useCallback((e) => {
@@ -248,14 +260,18 @@ const TimeScrollView: FunctionComponent<Props> = ({width, height, onCanvasElemen
 
     if (hideToolbar) {
         return (
-            <div ref={divRef} style={{position: 'absolute', width, height, background: 'white'}}>
+            <div ref={elmt => setDivElmt(elmt)} style={{position: 'absolute', width, height, background: 'white'}}>
                 {content2}
             </div>
         )
     }
 
     return (
-        <div className="TimeScrollView" ref={divRef} style={{position: 'relative', width, height, overflow: 'hidden'}}>
+        <div
+            className="TimeScrollView"
+            ref={elmt => setDivElmt(elmt)}
+            style={{position: 'relative', width, height, overflow: 'hidden'}}
+        >
             <Splitter
                 // ref={divRef}
                 width={width}

@@ -15,7 +15,7 @@ export type PanUpdateProperties = {
 }
 
 type PanUpdateRefs = {
-    divRef: React.MutableRefObject<HTMLDivElement | null>
+    divElmt: HTMLDivElement | null
     panStateRef: PanStateRef
 }
 
@@ -85,9 +85,9 @@ const isPanning = (ref: PanStateRef) => {
 }
 
 
-const useTimeScrollPan = (divRef: React.MutableRefObject<HTMLDivElement | null>, secondsPerPixel: number, panTimeSelectionDeltaT: PanFn) => {
+const useTimeScrollPan = (divElmt: HTMLDivElement | null, secondsPerPixel: number, panTimeSelectionDeltaT: PanFn) => {
     const panStateRef = useRef<PanState>({})
-    const refs = useMemo(() => {return {divRef, panStateRef}}, [divRef, panStateRef])
+    const refs = useMemo(() => {return {divElmt, panStateRef}}, [divElmt, panStateRef])
     const { throttler, cancelThrottled } = useThrottledPan(refs, secondsPerPixel, panTimeSelectionDeltaT)
     const resetAnchor = useCallback((mouseX: number) => {
         resetPanStateAnchor(panStateRef, mouseX, cancelThrottled)
