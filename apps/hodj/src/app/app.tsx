@@ -3,15 +3,19 @@ import { Hyperlink, SmallIconButton, useWindowDimensions } from '@hodj/misc';
 import Section from './Section';
 import LayoutExample from './LayoutExample';
 import { Add } from '@mui/icons-material';
+import TimeseriesGraphExample from './TimeseriesGraphExample';
 
 export function App() {
   const { width, height } = useWindowDimensions();
   return (
-    <div style={{position: 'absolute', width, height, overflowY: 'auto'}}>
+    <div style={{ position: 'absolute', width, height, overflowY: 'auto' }}>
       <Section label="" width={width}>
         <div>
           <h1>Hodj</h1>
-          <p>This app is a development tool, serving as a test for a collection of React widgets in the @hodj repo.</p>
+          <p>
+            This app is a development tool, serving as a test for a collection
+            of React widgets in the @hodj repo.
+          </p>
         </div>
       </Section>
       <Section label="Hyperlink" width={width}>
@@ -27,8 +31,10 @@ export function App() {
           onClick={() => alert('SmallIconButton clicked')}
         />
       </Section>
+      <Section label="TimeseriesGraph" width={width}>
+        <TimeseriesGraphExample width={width} />
+      </Section>
     </div>
-    
   );
 }
 

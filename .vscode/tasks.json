@@ -1,6 +1,11 @@
 {
     "tasks": [
         {
+            "label": "build hodj",
+            "type": "shell",
+            "command": "nx run hodj:build",
+        },
+        {
             "label": "serve hodj",
             "type": "shell",
             "command": "nx run hodj:serve",
@@ -8,7 +13,7 @@
         {
             "label": "generate nx react library",
             "type": "shell",
-            "command": "nx g @nx/react:library --importPath=@hodj/${input:libraryName} --directory=libs --name=${input:libraryName} --publishable",
+            "command": "nx g @nx/react:library --importPath=@hodj/${input:libraryName} --directory=libs/${input:libraryName} --publishable",
         }
     ],
     "inputs": [

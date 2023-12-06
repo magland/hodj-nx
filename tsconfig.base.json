@@ -15,7 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hodj/misc": ["libs/misc/src/index.ts"]
+      "@hodj/misc": ["libs/misc/src/index.ts"],
+      "@hodj/splitter": ["libs/splitter/src/index.ts"],
+      "@hodj/time-scroll-view": ["libs/time-scroll-view/src/index.ts"],
+      "@hodj/time-selection": ["libs/time-selection/src/index.ts"],
+      "@hodj/timeseries-graph": ["libs/timeseries-graph/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
