@@ -5,6 +5,7 @@ type Props = {
     onClick?: () => void
     title?: string
     disabled?: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     icon?: any
     fontSize?: number
     label?: string

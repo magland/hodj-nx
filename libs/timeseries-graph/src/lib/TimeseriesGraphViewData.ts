@@ -9,6 +9,7 @@ export type GridlineOpts = {
 
 export type Dataset = {
     name: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: {[key: string]: any}
 }
 
@@ -16,7 +17,9 @@ export type Series = {
     type: string
     dataset: string
     title?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     encoding: {[key: string]: any}
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     attributes: {[key: string]: any}
 }
 

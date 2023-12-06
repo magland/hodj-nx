@@ -47,7 +47,7 @@ const TimeseriesGraphView: FunctionComponent<Props> = ({data, width, height}) =>
         const t2 = maxTime + (timeOffset || 0)
         reportTotalTimeRange(t1, t2)
         setVisibleTimeRange(t1, t2)
-    }, [minTime, maxTime, timeOffset])
+    }, [minTime, maxTime, timeOffset, reportTotalTimeRange, setVisibleTimeRange])
 
     const {canvasWidth, canvasHeight, margins} = useTimeScrollView({width, height, hideToolbar})
 

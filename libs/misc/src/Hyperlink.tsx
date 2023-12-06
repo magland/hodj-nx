@@ -14,6 +14,7 @@ const Hyperlink: FunctionComponent<PropsWithChildren<Props>> = ({children, onCli
 	}
 	return (
 		!disabled ? (
+			// eslint-disable-next-line jsx-a11y/anchor-is-valid
 			<a onClick={onClick} style={{cursor: 'pointer', color: color || 'darkblue'}}>{children}</a>
 		) : (
 			<span style={{color: 'gray'}}>{children}</span>

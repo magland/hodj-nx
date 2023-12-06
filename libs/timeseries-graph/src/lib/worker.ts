@@ -231,6 +231,7 @@ const paintPanel = (context: CanvasRenderingContext2D, props: PanelProps) => {
     context.restore()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PlotSeries = {type: string, times: number[], values: number[], attributes: {[key: string]: any}}
 
 const computePlotSeries = (resolvedSeries: ResolvedSeries[]): PlotSeries[] => {
@@ -268,12 +269,14 @@ const computePlotSeries = (resolvedSeries: ResolvedSeries[]): PlotSeries[] => {
     return plotSeries
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const applyLineAttributes = (context: CanvasRenderingContext2D, attributes: any) => {
     context.strokeStyle = attributes['color'] ?? 'black'
     context.lineWidth = attributes['width'] ?? 1.1 // 1.1 hack--but fixes the 'disappearing lines' issue
     attributes['dash'] && context.setLineDash(attributes['dash'])
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const applyMarkerAttributes = (context: CanvasRenderingContext2D, attributes: any) => {
     context.fillStyle = attributes['color'] ?? 'black'
 }

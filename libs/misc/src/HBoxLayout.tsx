@@ -8,6 +8,7 @@ type HBoxLayoutProps = {
 
 const HBoxLayout: React.FunctionComponent<PropsWithChildren<HBoxLayoutProps>> = ({widths, height, spacing = 0, children}) => {
     const totalWidth = widths.reduce((a, b) => (a + b), 0)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const children2 = React.Children.toArray(children).map(ch => (ch as any))
     const lefts = useMemo(() => {
         const lefts: number[] = []
@@ -21,6 +22,7 @@ const HBoxLayout: React.FunctionComponent<PropsWithChildren<HBoxLayoutProps>> = 
     return (
         <div className="HBoxLayout" style={{position: 'relative', width: totalWidth, height}}>
             {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 children2.map((child: any, i) => {
                     return child ? (
                         <div key={i} style={{position: 'absolute', overflow: 'hidden', background: 'white', left: lefts[i], top: 0, width: widths[i], height}}>
