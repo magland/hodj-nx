@@ -8,5 +8,12 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^5.14.19",
+    "@mui/material": "^5.14.20"
   }
 }

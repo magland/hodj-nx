@@ -36,8 +36,8 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      // External packages that should not be bundled into your library.
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      // Match @hodj/* imports to the local package.
+      external: ['react', 'react-dom', 'react/jsx-runtime', /@hodj\/.*/],
     },
   },
 });

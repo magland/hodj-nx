@@ -9,7 +9,11 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/time-selection/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/time-selection/**/*.{ts,tsx,js,jsx}",
+          "libs/time-selection/package.json",
+          "libs/time-selection/project.json"
+        ]
       }
     },
     "build": {

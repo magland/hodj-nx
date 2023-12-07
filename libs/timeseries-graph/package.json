@@ -5,8 +5,16 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "dependencies": {
+    "@hodj/time-scroll-view": "0.0.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "@hodj/time-selection": "*"
   }
 }

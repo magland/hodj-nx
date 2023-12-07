@@ -9,7 +9,11 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/timeseries-graph/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/timeseries-graph/**/*.{ts,tsx,js,jsx}",
+          "libs/timeseries-graph/package.json",
+          "libs/timeseries-graph/project.json"
+        ]
       }
     },
     "build": {

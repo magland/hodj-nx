@@ -9,7 +9,11 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/modal-window/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/modal-window/**/*.{ts,tsx,js,jsx}",
+          "libs/modal-window/package.json",
+          "libs/modal-window/project.json"
+        ]
       }
     },
     "build": {

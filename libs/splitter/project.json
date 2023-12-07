@@ -9,7 +9,11 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/splitter/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/splitter/**/*.{ts,tsx,js,jsx}",
+          "libs/splitter/package.json",
+          "libs/splitter/project.json"
+        ]
       }
     },
     "build": {

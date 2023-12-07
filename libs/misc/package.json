@@ -8,5 +8,10 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "dependencies": {
   }
 }

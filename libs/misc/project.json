@@ -9,7 +9,11 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/misc/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/misc/**/*.{ts,tsx,js,jsx}",
+          "libs/misc/package.json",
+          "libs/misc/project.json"
+        ]
       }
     },
     "build": {
